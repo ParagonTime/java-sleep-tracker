@@ -12,10 +12,11 @@ import java.util.function.Function;
 public class SleepTrackerApp {
 
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm"); //30.10.25 23:50
+    private static List<Function<List<SleepingSession>, SleepAnalysisResult>> functions;
 
     public static void main(String[] args) {
+        functions = new ArrayList<>();
         List<SleepingSession> sleepingSessions;
-        List<Function<List<SleepingSession>, SleepAnalysisResult>> functions = new ArrayList<>();
         try {
             sleepingSessions = getLogFromFile(args[0]).stream()
                     .map(SleepTrackerApp::getSleepingSessionFromLine)
@@ -23,13 +24,8 @@ public class SleepTrackerApp {
         } catch (IOException e) {
             return;
         }
-        functions.add(new SessionsCounter());
-        functions.add(new MinSleepingSession());
-        functions.add(new MaxSleepingSession());
-        functions.add(new AvgSleepingSession());
-        functions.add(new BadSleepingSessionCounter());
-        functions.add(new NightWithoutSleepingCounter());
-        functions.add(new UsersClassificator());
+
+        setAnalysisFunctions(functions);
 
         List<SleepAnalysisResult> results = functions.stream()
                 .map(func -> func.apply(sleepingSessions))
@@ -37,11 +33,21 @@ public class SleepTrackerApp {
                 .toList();
     }
 
-    private static List<String> getLogFromFile(String fileName) throws IOException {
+    public static void setAnalysisFunctions(List<Function<List<SleepingSession>, SleepAnalysisResult>> functions) {
+        functions.add(new SessionsCounter());
+        functions.add(new MinSleepingSession());
+        functions.add(new MaxSleepingSession());
+        functions.add(new AvgSleepingSession());
+        functions.add(new BadSleepingSessionCounter());
+        functions.add(new NightWithoutSleepingCounter());
+        functions.add(new UsersClassificator());
+    }
+
+    public static List<String> getLogFromFile(String fileName) throws IOException {
         return Files.readAllLines(Path.of(fileName));
     }
 
-    private static SleepingSession getSleepingSessionFromLine(String line) {
+    public static SleepingSession getSleepingSessionFromLine(String line) {
         String[] array = line.split(";");
         return new SleepingSession(
                 LocalDateTime.parse(array[0], INPUT_FORMATTER),
