@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 public class NightWithoutSleepingCounter implements Function<List<SleepingSession>, SleepAnalysisResult> {
 
+    private static final String NIGHT_WITHOUT_SLEEPING_MESSAGE = "Night without sleeping count: ";
     private static final int START_DAYTIME_SLEEP = 12;
     private static final int END_DAYTIME_SLEEP = 16;
     private static final int END_NIGHT_SLEEP = 6;
@@ -24,7 +25,7 @@ public class NightWithoutSleepingCounter implements Function<List<SleepingSessio
                 .count();
 
         return new SleepAnalysisResult(
-                "Night without sleeping count: ",
+                NIGHT_WITHOUT_SLEEPING_MESSAGE,
                 dayCount - (int) sleepingNightsCount);
     }
 }

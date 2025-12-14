@@ -5,6 +5,8 @@ import java.util.function.Function;
 
 public class BadSleepingSessionCounter implements Function<List<SleepingSession>, SleepAnalysisResult> {
 
+    private static final String BAD_SLEEPING_SESSION_MESSAGE = "Bad sleeping session count: ";
+
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
         long count = sleepingSessions.stream()
@@ -13,7 +15,7 @@ public class BadSleepingSessionCounter implements Function<List<SleepingSession>
                 .count();
 
         return new SleepAnalysisResult(
-                "Bad sleeping session count: ",
+                BAD_SLEEPING_SESSION_MESSAGE,
                 (int) count);
     }
 }

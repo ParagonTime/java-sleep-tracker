@@ -6,6 +6,8 @@ import java.util.function.Function;
 
 public class MinSleepingSession implements Function<List<SleepingSession>, SleepAnalysisResult> {
 
+    private static final String MIN_SLEEPING_SESSION_MESSAGE = "Min sleeping session in minutes: ";
+
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
         Long min = sleepingSessions.stream()
@@ -16,7 +18,7 @@ public class MinSleepingSession implements Function<List<SleepingSession>, Sleep
                 .orElse(0L);
 
         return new SleepAnalysisResult(
-                "Min sleeping session in minutes: ",
+                MIN_SLEEPING_SESSION_MESSAGE,
                 min.intValue());
     }
 }

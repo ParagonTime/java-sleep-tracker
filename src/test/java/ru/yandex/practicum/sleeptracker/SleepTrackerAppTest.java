@@ -19,10 +19,10 @@ public class SleepTrackerAppTest {
     public void testGetLogFromFile(@TempDir Path tempDir) throws IOException {
         Path testFile = tempDir.resolve("test.log");
         String content = """
-            30.10.25 23:50;31.10.25 07:30;GOOD
-            31.10.25 23:15;01.11.25 06:45;BAD
-            01.11.25 22:30;02.11.25 08:00;GOOD
-            """;
+                30.10.25 23:50;31.10.25 07:30;GOOD
+                31.10.25 23:15;01.11.25 06:45;BAD
+                01.11.25 22:30;02.11.25 08:00;GOOD
+                """;
         Files.writeString(testFile, content);
         List<String> lines = SleepTrackerApp.getLogFromFile(testFile.toString());
 

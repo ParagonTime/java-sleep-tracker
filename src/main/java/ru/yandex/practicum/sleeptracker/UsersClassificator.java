@@ -6,6 +6,9 @@ import java.util.function.Function;
 
 public class UsersClassificator implements Function<List<SleepingSession>, SleepAnalysisResult> {
 
+    private static final String OWL_TYPE_MESSAGE = "Your sleeping type is Owl, nights like Owl: ";
+    private static final String LARK_TYPE_MESSAGE = "Your sleeping type is Lark, nights like Lark: ";
+    private static final String DOVE_TYPE_MESSAGE = "Your sleeping type is Dove, nights like Dove: ";
     private static final int START_DAYTIME_SLEEP = 12;
     private static final int END_DAYTIME_SLEEP = 16;
     private static final int END_NIGHT_SLEEP = 6;
@@ -13,7 +16,6 @@ public class UsersClassificator implements Function<List<SleepingSession>, Sleep
     private static final int OWL_END_SLEEP = 9;
     private static final int LARK_START_SLEEP = 22;
     private static final int LARK_END_SLEEP = 7;
-
 
 
     @Override
@@ -48,15 +50,15 @@ public class UsersClassificator implements Function<List<SleepingSession>, Sleep
                 && owlSleepCount.intValue() > doveSleepCount.intValue()
         ) {
             maxSleepLikeType = owlSleepCount.intValue();
-            userSleepingType = "Your sleeping type is Owl, nights like Owl: ";
+            userSleepingType = OWL_TYPE_MESSAGE;
         } else if (larkSleepCount.intValue() > owlSleepCount.intValue()
                 && larkSleepCount.intValue() > doveSleepCount.intValue()
         ) {
             maxSleepLikeType = larkSleepCount.intValue();
-            userSleepingType = "Your sleeping type is Lark, nights like Lark: ";
+            userSleepingType = LARK_TYPE_MESSAGE;
         } else {
             maxSleepLikeType = doveSleepCount.intValue();
-            userSleepingType = "Your sleeping type is Dove, nights like Dove: ";
+            userSleepingType = DOVE_TYPE_MESSAGE;
         }
         return new SleepAnalysisResult(
                 userSleepingType,

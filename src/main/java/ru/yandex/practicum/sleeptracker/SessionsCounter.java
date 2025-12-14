@@ -5,10 +5,12 @@ import java.util.function.Function;
 
 public class SessionsCounter implements Function<List<SleepingSession>, SleepAnalysisResult> {
 
+    private static final String SESSION_COUNTER_MESSAGE = "Sleeping sessions in log: ";
+
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
         return new SleepAnalysisResult(
-                "Sleeping sessions in log: ",
+                SESSION_COUNTER_MESSAGE,
                 sleepingSessions.size());
     }
 }

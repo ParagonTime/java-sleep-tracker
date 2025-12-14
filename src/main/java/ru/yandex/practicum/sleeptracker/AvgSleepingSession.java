@@ -6,6 +6,8 @@ import java.util.function.Function;
 
 public class AvgSleepingSession implements Function<List<SleepingSession>, SleepAnalysisResult> {
 
+    private static final String AVG_SLEEPING_SESSION_MESSAGE = "Avg sleeping session in minutes: ";
+
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
         double avg = sleepingSessions.stream()
@@ -17,7 +19,7 @@ public class AvgSleepingSession implements Function<List<SleepingSession>, Sleep
                 .orElse(0);
 
         return new SleepAnalysisResult(
-                "Avg sleeping session in minutes: ",
+                AVG_SLEEPING_SESSION_MESSAGE,
                 (int) avg);
     }
 }
